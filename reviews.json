@@ -1,0 +1,124 @@
+{
+    "reviews": [
+        {
+        "professor": "Dr. Emily Johnson",
+        "subject": "Introduction to Computer Science",
+        "stars": 4,
+        "review": "Dr. Johnson is an excellent professor. Her lectures are engaging and she genuinely cares about her students' learning. Highly recommended!"
+        },
+        {
+        "professor": "Professor Michael Lee",
+        "subject": "Organic Chemistry",
+        "stars": 3,
+        "review": "Professor Lee's class is challenging, but he is knowledgeable and willing to help students who put in the effort. The grading can be tough, but it's fair."
+        },
+        {
+        "professor": "Dr. Sarah Patel",
+        "subject": "World History",
+        "stars": 5,
+        "review": "Dr. Patel is passionate about the subject and her lectures are informative and thought-provoking. She encourages class discussions and makes the material interesting."
+        },
+        {
+        "professor": "Professor John Wilson",
+        "subject": "Principles of Marketing",
+        "stars": 4,
+        "review": "Professor Wilson is knowledgeable and provides relevant real-world examples. His grading is fair, and he is accessible during office hours."
+        },
+        {
+        "professor": "Dr. Lily Chen",
+        "subject": "Intro to Psychology",
+        "stars": 4,
+        "review": "Dr. Chen is a great lecturer who makes the course material engaging and accessible. Her exams are challenging but fair."
+        },
+        {
+        "professor": "Professor David Hernandez",
+        "subject": "Calculus I",
+        "stars": 3,
+        "review": "Professor Hernandez is knowledgeable, but his lectures can be dry and difficult to follow at times. The workload is heavy, but the material is important."
+        },
+        {
+        "professor": "Dr. Sophia Nguyen",
+        "subject": "Comparative Literature",
+        "stars": 5,
+        "review": "Dr. Nguyen is an exceptional professor. Her passion for the subject is evident, and she facilitates engaging discussions. I highly recommend taking her courses."
+        },
+        {
+        "professor": "Professor Alex Ramirez",
+        "subject": "Introduction to Sociology",
+        "stars": 4,
+        "review": "Professor Ramirez is a knowledgeable and approachable instructor. His lectures are interesting, and he is open to student questions and feedback."
+        },
+        {
+        "professor": "Dr. Isabella Rossi",
+        "subject": "Organic Chemistry II",
+        "stars": 3,
+        "review": "Dr. Rossi is a challenging professor, but the material is important. She is willing to help students who seek her assistance."
+        },
+        {
+        "professor": "Professor Ethan Kim",
+        "subject": "Introduction to Programming",
+        "stars": 4,
+        "review": "Professor Kim is a great teacher who explains concepts clearly and provides ample opportunities for hands-on learning. The course workload is manageable."
+        },
+        {
+        "professor": "Dr. Olivia Gonzalez",
+        "subject": "Principles of Economics",
+        "stars": 4,
+        "review": "Dr. Gonzalez's lectures are engaging and she provides helpful examples to illustrate economic theories. The course is well-organized and challenging."
+        },
+        {
+        "professor": "Professor Liam Zhao",
+        "subject": "Differential Equations",
+        "stars": 3,
+        "review": "Professor Zhao is knowledgeable, but his teaching style can be dry at times. The course material is difficult, but he is available for extra help."
+        },
+        {
+        "professor": "Dr. Avery Patel",
+        "subject": "Intro to Biology",
+        "stars": 4,
+        "review": "Dr. Patel is an enthusiastic professor who makes the course content interesting. The labs are well-designed and complement the lectures."
+        },
+        {
+        "professor": "Professor Ava Nguyen",
+        "subject": "Modern World History",
+        "stars": 5,
+        "review": "Professor Nguyen is an engaging lecturer who brings history to life. Her assignments are challenging but fair, and she is always available to provide guidance."
+        },
+        {
+        "professor": "Dr. Liam Hernandez",
+        "subject": "Principles of Management",
+        "stars": 4,
+        "review": "Dr. Hernandez is a knowledgeable professor who relates the course material to real-world business scenarios. The workload is manageable, and he provides valuable feedback."
+        },
+        {
+        "professor": "Professor Sophia Ramirez",
+        "subject": "Introduction to Psychology",
+        "stars": 4,
+        "review": "Professor Ramirez is an enthusiastic and approachable instructor. Her lectures are informative, and she encourages class discussion."
+        },
+        {
+        "professor": "Dr. Isabella Zhao",
+        "subject": "Organic Chemistry I",
+        "stars": 3,
+        "review": "Dr. Zhao is a knowledgeable professor, but her lectures can be dense and difficult to follow at times. The course workload is heavy, but the material is vital for future studies."
+        },
+        {
+        "professor": "Professor Ethan Rossi",
+        "subject": "Principles of Marketing",
+        "stars": 4,
+        "review": "Professor Rossi is engaging and provides relevant examples to illustrate marketing concepts. The course assignments are challenging but valuable."
+        },
+        {
+        "professor": "Dr. Olivia Kim",
+        "subject": "Introduction to Computer Science",
+        "stars": 5,
+        "review": "Dr. Kim is an exceptional professor who makes complex topics accessible. Her lectures are well-organized, and she is always available to help students."
+        },
+        {
+        "professor": "Professor Liam Gonzalez",
+        "subject": "Differential Equations",
+        "stars": 3,
+        "review": "Professor Gonzalez is knowledgeable, but his teaching style can be dry at times. The course material is challenging, and he expects a lot from his students."
+        }
+    ]
+}
