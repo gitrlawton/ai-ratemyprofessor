@@ -1,6 +1,9 @@
+// This file is responsible for generating and streaming the AI's responses,
+// per the systemPrompt's instructions.
+
 import { NextResponse } from "next/server";
 import { Pinecone } from "@pinecone-database/pinecone";
-import OpenAI from "openai"
+import OpenAI from "openai";
 
 const systemPrompt = `
 
@@ -23,9 +26,11 @@ criteria and explain why they were selected.
 Always be helpful, concise, and provide relevant information that will aid the 
 student in making an informed decision.
 
+Important: Do not use asterisks in your responses.
+
 `
 
-export async function Postpone(req) {
+export async function POST(req) {
     const data = await req.json()
 
     const pc = new Pinecone({
@@ -33,11 +38,11 @@ export async function Postpone(req) {
     })
 
     const index = pc.index("rag").namespace("ns1")
-    const OpenAI = new OpenAI()
+    const openai = new OpenAI()
     // Extract the last message from the conversation history.
     const text = data[data.length -1].content
     // Create our embedding.
-    const embedding = await OpenAI.Embeddings.create({
+    const embedding = await openai.embeddings.create({
         model: "text-embedding-3-small",
         input: text,
         encoding_format: "float"
@@ -73,7 +78,7 @@ export async function Postpone(req) {
         stream: true
     })
 
-    const stream = ReadableStream({
+    const stream = new ReadableStream({
         async start(controller) {
             const encoder = new TextEncoder()
             try {
