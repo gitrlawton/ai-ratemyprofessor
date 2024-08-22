@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { Box, Stack, TextField, Button, Typography } from "@mui/material";
+import SubmitReviewPageForm from "@/components/SubmitReviewPageForm";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -130,6 +131,9 @@ export default function Home() {
           </Button>
         </Stack>
       </Stack>
+      <Box>
+      <SubmitReviewPageForm />
+      </Box>
     </Box>
   );
 }

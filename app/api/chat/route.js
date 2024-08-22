@@ -37,7 +37,7 @@ export async function POST(req) {
         apiKey: process.env.PINECONE_API_KEY
     })
 
-    const index = pc.index("rag").namespace("ns1")
+    const index = pc.Index("rmp-reviews")
     const openai = new OpenAI()
     // Extract the last message from the conversation history.
     const text = data[data.length -1].content
@@ -57,10 +57,10 @@ export async function POST(req) {
     let resultString = "\n\nReturned results from vector db (done automatically): "
     results.matches.forEach((match) => {
         resultString += `\n
-        Professor: ${match.id}
-        Review: ${match.metadata.stars}
-        Subject: ${match.metadata.subject}
-        Stars: ${match.metadata.stars}
+        Professor: ${match.metadata.professorName}  
+        Review: ${match.metadata.review}  
+        Quality: ${match.metadata.quality}  
+        Difficulty: ${match.metadata.difficulty}  
         \n\n
         `
     })
