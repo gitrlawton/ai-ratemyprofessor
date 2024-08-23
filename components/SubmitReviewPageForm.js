@@ -7,13 +7,13 @@ function SubmitReviewPageForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/scrape', {
+      const response = await fetch(process.env.NEXT_PUBLIC_AWS_LAMBDA_GATEWAY_API, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json' 
         },
         // Send the url to the API route.
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: url }),
       });
       const data = await response.json();
       console.log('Scraped Data:', data);
