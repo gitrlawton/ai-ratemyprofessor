@@ -20,7 +20,7 @@ Include the following details for each professor in your response:
 
 Name of the Professor
 Rating(s) (in stars)
-Subject Taught (if available)
+Course Taught
 The Review
 
 Important: Do not use asterisks in your responses.
@@ -40,7 +40,7 @@ export async function POST(req) {
   // Extract 'query' and 'text' from the data
   const { params } = data[0];  
   console.log("params: ", params)
-  const { professorName, subject, teachingStyle } = params || {};
+  const { professorName, course, difficulty } = params || {};
 
     // Extract the last message from the conversation history.
     const text = data[data.length -1].content
@@ -54,12 +54,14 @@ export async function POST(req) {
     // Build the dynamic filter object
     const filter = {};
     if (professorName) filter.professorName = professorName;
-    if (subject) filter.subject = subject;
-    if (teachingStyle) filter.teachingStyle = teachingStyle;
+    if (course) filter.course = course;
+    if (difficulty) filter.difficulty = Number(difficulty);
+    console.log("difficulty: ", difficulty)
+    console.log("filter: ", filter)
 
     // Query the vector database using the embedding.
     const results = await index.query({
-        topK: 3,
+        topK: 5,
         includeMetadata: true,
         vector: embedding.data[0].embedding,
         // Dynamic filter
@@ -74,7 +76,8 @@ export async function POST(req) {
     // For my scraped data [COMMENT IN/OUT]
     results.matches.forEach((match) => {
         resultString += `\n
-        Professor: ${match.metadata.professorName}  
+        Professor: ${match.metadata.professorName}
+        Course: ${match.metadata.course}   
         Review: ${match.metadata.review}  
         Quality: ${match.metadata.quality}  
         Difficulty: ${match.metadata.difficulty}  
@@ -87,7 +90,7 @@ export async function POST(req) {
     //     resultString += `\n
     //     Professor: ${match.id}
     //     Review: ${match.metadata.review}
-    //     Subject: ${match.metadata.subject}
+    //     Course: ${match.metadata.course}
     //     Stars: ${match.metadata.stars} 
     //     \n\n
     //     `

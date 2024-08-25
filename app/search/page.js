@@ -25,8 +25,8 @@ const theme = createTheme({
 
 
 export default function Search() {
- const [subject, setSubject] = useState('');
- const [teachingStyle, setTeachingStyle] = useState('');
+ const [course, setCourse] = useState('');
+ const [difficulty, setDifficulty] = useState('');
  const [profName, setProfName] = useState('');
  const [results, setResults] = useState([]);
  const [loading, setLoading] = useState(false);
@@ -41,8 +41,8 @@ export default function Search() {
   
    let searchParams = {
     professorName: profName || undefined,
-    subject: subject || undefined,
-    teachingStyle: teachingStyle || undefined,
+    course: course || undefined,
+    difficulty: difficulty || undefined,
   };
   console.log('Search params:', searchParams);
 
@@ -50,8 +50,9 @@ export default function Search() {
   Provide ONLY the reviews that satisfy ALL the following criteria,
  
   ${profName ? `Professor Name: ${profName}` : ''}
-  ${subject ? `Subject: ${subject}` : ''}
-  ${teachingStyle ? `Teaching Style: ${teachingStyle}` : ''}
+  ${course ? `Course: ${course}` : ''}
+  ${difficulty ? `Difficulty: ${difficulty}` : ''}
+
 
 
 
@@ -59,15 +60,16 @@ export default function Search() {
   [
     {
       "name": " ",
-      "subject": " ",
+      "course": " ",
       "rating": " ",
-      "review": " "
+      "review": " ",
+      "difficulty": " "
     },
     ...
   ]
 `;
 
-  if (!profName && !subject && !teachingStyle) {
+  if (!profName && !course && !difficulty) {
    setError('Please provide at least one search criterion.');
    setLoading(false);
    return;
@@ -76,7 +78,6 @@ export default function Search() {
  
   
    try {
-    console.log(profName)
      const response = await fetch('/api/chat', {
        method: 'POST',
        headers: {
@@ -130,14 +131,14 @@ export default function Search() {
            const results = [];
     
      // Regular expression to match each entry
-     const regex = /"name": "(.*?)",\s*"subject": "(.*?)",\s*"rating": "(.*?)",\s*"review": "(.*?)"/g;
+     const regex = /"name": "(.*?)",\s*"course": "(.*?)",\s*"rating": "(.*?)",\s*"review": "(.*?)"/g;
      let match;
     
      // Loop through all matches
      while ((match = regex.exec(cleanedString)) !== null) {
        results.push({
          name: match[1],
-         subject: match[2],
+         course: match[2],
          rating: match[3],
          review: match[4]
        });
@@ -152,19 +153,21 @@ export default function Search() {
      return [];
    }
  };
-    const renderStars = (rating) => {
-   const stars = parseInt(rating, 10); // Convert rating to integer
-   return (
-     <Stack direction="row" spacing={0.5}>
-       {Array.from({ length: 5 }, (_, index) => (
-         <StarIcon
-           key={index}
-           color={index < stars ? 'primary' : 'action'} // Fill color based on rating
-         />
-       ))}
-     </Stack>
-   );
- };
+ const renderStars = (rating) => {
+  const stars = parseInt(rating, 10); // Convert rating to integer
+  const color = stars < 3 ? 'error' : 'success'; // Red for less than 3, green for 3 or more
+
+  return (
+    <Stack direction="row" spacing={0.5}>
+      {Array.from({ length: 5 }, (_, index) => (
+        <StarIcon
+          key={index}
+          color={index < stars ? color : 'action'} // Fill color based on rating
+        />
+      ))}
+    </Stack>
+  );
+};
 
 
  
@@ -229,10 +232,10 @@ export default function Search() {
              }}
            />
            <TextField
-             label="Subject"
+             label="course"
              fullWidth
-             value={subject}
-             onChange={(e) => setSubject(e.target.value)}
+             value={course}
+             onChange={(e) => setCourse(e.target.value)}
              sx={{
                '& .MuiInputLabel-root': {
                  color: '#7f7f7f', // Makes the label transparent
@@ -255,10 +258,10 @@ export default function Search() {
              }}
            />
            <TextField
-             label="Teaching Style Preferences"
+             label="Difficulty"
              fullWidth
-             value={teachingStyle}
-             onChange={(e) => setTeachingStyle(e.target.value)}
+             value={difficulty}
+             onChange={(e) => setDifficulty(e.target.value)}
              sx={{
                '& .MuiInputLabel-root': {
                  color: '#7f7f7f', // Makes the label transparent
@@ -323,9 +326,9 @@ export default function Search() {
        {result.name}
      </Typography>
      <Typography
-       sx={{ color: '#333', mt: 1, fontSize: '1.2rem' }} // Larger font size for subject
+       sx={{ color: '#333', mt: 1, fontSize: '1.2rem' }} // Larger font size for course
      >
-       {result.subject}
+       {result.course}
      </Typography>
      <Typography sx={{ color: '#333', mt: 1 }}>
        {renderStars(result.rating)}
