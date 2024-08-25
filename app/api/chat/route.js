@@ -7,24 +7,21 @@ import OpenAI from "openai";
 
 const systemPrompt = `
 
-You are an AI assistant designed to help students find the best professors 
-based on their specific queries. When a student asks about professors for a 
-particular course, department, or university, use Retrieval-Augmented Generation 
-(RAG) to search a database of professor reviews and ratings. For each query, 
-return the top 3 professors who best match the student’s criteria.
+You are an AI assistant that helps users with professor reviews. 
+When answering queries, use ONLY the information provided.
+If the provided information is not sufficient to answer the query, say so.  
+Do not make up or hallucinate any information not present in the retrieved reviews.
+Format your response as follows:
+1. Restate the user's query.
+2. Provide your answer based solely on the retrieved reviews.
+3. If you can't answer based on the retrieved information, clearly state that.
 
 Include the following details for each professor in your response:
 
 Name of the Professor
-Overall Rating (stars)
-Subject Taught
-Key Highlights from Reviews (e.g., teaching style, difficulty level, student feedback)
-
-If no direct match is found, provide professors who are closest to the search 
-criteria and explain why they were selected.
-
-Always be helpful, concise, and provide relevant information that will aid the 
-student in making an informed decision.
+Rating(s) (in stars)
+Subject Taught (if available)
+The Review
 
 Important: Do not use asterisks in your responses.
 
@@ -37,8 +34,14 @@ export async function POST(req) {
         apiKey: process.env.PINECONE_API_KEY
     })
 
-    const index = pc.Index("rmp-reviews")
+    const index = pc.index("rmp-reviews")//.namespace('ns1')
     const openai = new OpenAI()
+
+  // Extract 'query' and 'text' from the data
+  const { params } = data[0];  
+  console.log("params: ", params)
+  const { professorName, subject, teachingStyle } = params || {};
+
     // Extract the last message from the conversation history.
     const text = data[data.length -1].content
     // Create our embedding.
@@ -47,14 +50,28 @@ export async function POST(req) {
         input: text,
         encoding_format: "float"
     })
+
+    // Build the dynamic filter object
+    const filter = {};
+    if (professorName) filter.professorName = professorName;
+    if (subject) filter.subject = subject;
+    if (teachingStyle) filter.teachingStyle = teachingStyle;
+
     // Query the vector database using the embedding.
     const results = await index.query({
         topK: 3,
         includeMetadata: true,
-        vector: embedding.data[0].embedding
+        vector: embedding.data[0].embedding,
+        // Dynamic filter
+        filter: filter 
     })
+
+    console.log("Index query results:", JSON.stringify(results.matches, null, 2));
+
     // Make a string to send our results to OpenAI.
     let resultString = "\n\nReturned results from vector db (done automatically): "
+
+    // For my scraped data [COMMENT IN/OUT]
     results.matches.forEach((match) => {
         resultString += `\n
         Professor: ${match.metadata.professorName}  
@@ -64,9 +81,22 @@ export async function POST(req) {
         \n\n
         `
     })
+
+    // // For my mock data [COMMENT IN/OUT]
+    // results.matches.forEach((match) => {
+    //     resultString += `\n
+    //     Professor: ${match.id}
+    //     Review: ${match.metadata.review}
+    //     Subject: ${match.metadata.subject}
+    //     Stars: ${match.metadata.stars} 
+    //     \n\n
+    //     `
+    // })
+
     // Take our last message and append it to the end of our last message.
     const lastMessage = data[data.length -1]
     const lastMessageContent = lastMessage.content + resultString
+    console.log("Last message content log: " + lastMessageContent); // Logging.
     const lastDataWithoutLastMessage = data.slice(0, data.length - 1)
     const completion = await openai.chat.completions.create({
         messages: [
