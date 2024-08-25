@@ -232,7 +232,7 @@ export default function Search() {
              }}
            />
            <TextField
-             label="course"
+             label="Course"
              fullWidth
              value={course}
              onChange={(e) => setCourse(e.target.value)}

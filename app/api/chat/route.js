@@ -44,6 +44,7 @@ export async function POST(req) {
 
     // Extract the last message from the conversation history.
     const text = data[data.length -1].content
+    console.log("text: ", text)
     // Create our embedding.
     const embedding = await openai.embeddings.create({
         model: "text-embedding-3-small",
@@ -59,14 +60,19 @@ export async function POST(req) {
     console.log("difficulty: ", difficulty)
     console.log("filter: ", filter)
 
-    // Query the vector database using the embedding.
-    const results = await index.query({
+    let queryOptions = {
         topK: 5,
         includeMetadata: true,
         vector: embedding.data[0].embedding,
-        // Dynamic filter
-        filter: filter 
-    })
+    };
+    
+    // Only add the filter property if filter is not an empty object
+    if (Object.keys(filter).length > 0) {
+        queryOptions.filter = filter;
+    }
+
+    // Query the vector database using the embedding.
+    const results = await index.query(queryOptions)
 
     console.log("Index query results:", JSON.stringify(results.matches, null, 2));
 
