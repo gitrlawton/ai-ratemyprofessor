@@ -79,7 +79,6 @@ export default function Home() {
    });
  };
 
-
  const handleKeyDown = (event) => {
    if (event.key === 'Enter') {
      event.preventDefault(); // Prevents the default action (e.g., form submission)
@@ -87,11 +86,13 @@ export default function Home() {
    }
  };
 
-
  const handleSearch = () => {
    router.push('/search');
  };
 
+ const handleAnalysis = () => {
+  router.push('/analysis');
+};
 
  return (
    <ThemeProvider theme={theme}>
@@ -207,18 +208,32 @@ export default function Home() {
          
        >
          <SubmitReviewPageForm /> 
-         <Button 
-          variant="contained" 
-          onClick={handleSearch}
-          sx={{
-            whiteSpace: 'normal',  // Allow the text to wrap
-            wordWrap: 'break-word', // Break long words if necessary
-            textAlign: 'center',   // Center-align the text
-            minWidth: '120px'
-          }}
-          >
-           Search Professors
-         </Button>
+         <Stack direction="row" spacing={2}>
+          <Button 
+            variant="contained" 
+            onClick={handleAnalysis}
+            sx={{
+              whiteSpace: 'normal',  // Allow the text to wrap
+              wordWrap: 'break-word', // Break long words if necessary
+              textAlign: 'center',   // Center-align the text
+              minWidth: '120px'
+            }}
+            >
+            Analyze
+          </Button>
+          <Button 
+            variant="contained" 
+            onClick={handleSearch}
+            sx={{
+              whiteSpace: 'normal',  // Allow the text to wrap
+              wordWrap: 'break-word', // Break long words if necessary
+              textAlign: 'center',   // Center-align the text
+              minWidth: '120px'
+            }}
+            >
+            Search
+          </Button>
+          </Stack>
        </Stack>
      </Box>
    </ThemeProvider>

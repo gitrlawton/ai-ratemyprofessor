@@ -73,54 +73,51 @@ function SubmitReviewPageForm() {
          gap: 2, // Add space between elements
        }}
      >
-       <Typography
-         variant="body1"
-         component="label"
-         color={theme.palette.text.secondary}
-         sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
-       >
-         Submit a Review:
-       </Typography>
-       <TextField
-         placeholder="Enter RateMyProfessors URL"
-         value={url}
-         onChange={(e) => setUrl(e.target.value)}
-         sx={{
-           width: '70%',
-           flexGrow: 1, // Allow the TextField to grow and fill available space
-           '& .MuiInputLabel-root': {
-             color: '#7f7f7f',
-           },
-           '& .MuiInputBase-root': {
-             color: '#000000',
-             backgroundColor: '#f5f5f5',
-           },
-           '& .MuiOutlinedInput-root': {
-             '& fieldset': {
-               borderColor: '#000000',
-             },
-             '&:hover fieldset': {
-               borderColor: '#000000',
-             },
-             '&.Mui-focused fieldset': {
-               borderColor: '#000000',
-             },
-           },
-         }}
-       />
-       <Button
-         type="submit"
-         variant="contained"
-         sx={{
-           bgcolor: theme.palette.primary.main,
-           color: theme.palette.text.primary,
-           '&:hover': {
-             bgcolor: theme.palette.primary.dark,
-           },
-           whiteSpace: 'nowrap', // Prevent button text from wrapping
-         }}
-         disabled={loading} // Disable button while loading
-       >
+        <TextField
+          label="Enter RateMyProfessors URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          sx={{
+            width: '120%',
+            flexGrow: 1,
+            '& .MuiInputLabel-root': {
+              color: '#7f7f7f',
+            },
+            '& .MuiInputBase-root': {
+              color: '#000000',
+              backgroundColor: '#f5f5f5',
+            },
+            '& .MuiOutlinedInput-root': {
+              height: '56px', // Adjust height to match the button
+              '& fieldset': {
+                borderColor: '#000000',
+              },
+              '&:hover fieldset': {
+                borderColor: '#000000',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#000000',
+              },
+            },
+          }}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            height: '56px', // Match the height of the TextField
+            bgcolor: theme.palette.primary.main,
+            color: theme.palette.text.primary,
+            '&:hover': {
+              bgcolor: theme.palette.primary.dark,
+            },
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center', // Vertically center content
+            px: 5, // Horizontal padding for button
+          }}
+          disabled={loading}
+        >
          {loading ? <CircularProgress size={24} sx={{ color: theme.palette.text.primary }} /> : 'Submit'}
        </Button>
      </Box>
