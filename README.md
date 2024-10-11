@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Rate My Professor AI Assistant
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a web application that allows users to search for professor reviews and analyze their sentiments using AI. Built with Next.js and Material-UI, the application provides a user-friendly interface for students to interact with professor data, submit URLs for scraping, and receive analysis on professor performance based on reviews.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Professor Search**: Users can search for professors by name, course, and difficulty level to retrieve relevant reviews.
+- **Review Submission**: Users can submit URLs from RateMyProfessors for scraping and analysis.
+- **Sentiment Analysis**: The application utilizes OpenAI's language model to analyze and summarize professor reviews, providing insights into teaching effectiveness and student sentiment.
+- **Responsive Design**: Built with Material-UI, the application is responsive and provides a seamless user experience across devices.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To set up the project, ensure you have Node.js installed on your machine. Then, follow these steps:
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install the required packages:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Create a `.env.local` file in the root directory and add your API keys:
+   ```plaintext
+   OPENAI_API_KEY=your_openai_api_key
+   PINECONE_API_KEY=your_pinecone_api_key
+   NEXT_PUBLIC_AWS_LAMBDA_GATEWAY_API=https://your_api_endpoint
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Run the Next.js application:
+
+   ```bash
+   npm run dev
+   ```
+
+2. Open your web browser and navigate to `http://localhost:3000`.
+
+3. Use the search functionality to find professors or submit a URL for scraping.
+
+4. View the analysis results and professor reviews directly in the application.
+
+## File Descriptions
+
+- **app/page.js**: The main entry point of the application, handling user interactions and rendering components.
+- **app/components/SubmitReviewPageForm.js**: A component for submitting URLs to scrape reviews from RateMyProfessors.
+- **app/api/chat/route.js**: API route for handling chat interactions and generating responses based on user queries.
+- **app/api/analyze/route.js**: API route for analyzing professor reviews and generating sentiment summaries.
+- **app/search/page.js**: The search page where users can input criteria to find professor reviews.
+
+## Dependencies
+
+- **Next.js**: For server-side rendering and building the application.
+- **Material-UI**: For UI components and styling.
+- **OpenAI**: For AI-driven analysis and responses.
+- **Pinecone**: For managing and querying vector embeddings of reviews.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
